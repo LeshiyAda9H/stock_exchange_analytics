@@ -2,8 +2,8 @@ import requests
 import pandas as pd
 import matplotlib as mpl
 
-start_date = '2023-01-01'
-end_date = '2023-01-31'
+start_date = '2024-01-01'
+end_date = '2024-05-24'
 
 def analyse(id):
     url = ('https://iss.moex.com/iss/history/engines/stock/markets/shares/securities/' + id + '.json?from='
@@ -12,6 +12,7 @@ def analyse(id):
     data = response.json()
     securities_data = data['history']
     df = pd.DataFrame(securities_data['data'], columns=securities_data['columns'])
+    
 
 def main():
     df = pd.read_csv('all_companies.csv')
