@@ -69,6 +69,24 @@ class Volume:
                 comp.add(x[0])
         return comp
 
+    def csv(self):
+        history = pd.read_csv('databases/history_data.csv')
+        data = []
+        for x in self.choose_very_stable():
+            data.append([list(history.loc[history['SECID'] == x]['SHORTNAME'])[0], x,
+                         list(history.loc[history['SECID'] == x]['VALUE'])[0]])
+        pd.DataFrame(data, columns = ['SHORTNAME', 'SECID', 'VALUE']).to_csv('databases/very_stable.csv')
+        data = []
+        for x in self.choose_popular_and_stable():
+            data.append([list(history.loc[history['SECID'] == x]['SHORTNAME'])[0], x,
+                         list(history.loc[history['SECID'] == x]['VALUE'])[0]])
+        pd.DataFrame(data, columns = ['SHORTNAME', 'SECID', 'VALUE']).to_csv('databases/popular_and_stable.csv')
+        data = []
+        for x in self.choose_very_popular():
+            data.append([list(history.loc[history['SECID'] == x]['SHORTNAME'])[0], x,
+                         list(history.loc[history['SECID'] == x]['VALUE'])[0]])
+        pd.DataFrame(data, columns = ['SHORTNAME', 'SECID', 'VALUE']).to_csv('databases/choose_very_popular.csv')
+
     def graph(self):
         m = [x[1] for x in list(self.medians) if x[1] < self.q3m + 1.5*(self.q3m-self.q1m)]
         plt.ylabel('Кол-во сделок', fontsize=30)
