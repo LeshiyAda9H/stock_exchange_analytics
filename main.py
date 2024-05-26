@@ -8,14 +8,24 @@ import warnings
 
 def main():
     warnings.filterwarnings("ignore")
+
     method1 = Volume()
-    print(method1.choose_very_popular())
-    print(method1.choose_popular_and_stable())
-    print(method1.choose_very_stable())
-    #method2 = ListLevels()
-    #method2.print()
-    #method4 = Divd()
-    #method4.csv()
+    method1.very_popular_to_csv()
+    method1.popular_and_stable_to_csv()
+    method1.very_stable_to_csv()
+
+    method2 = PE()
+    method2.csv()
+    method2.graph()
+
+    method3 = ListLevels()
+    method3.print()
+    method3.graph()
+
+    method4 = Divd()
+    method4.csv()
+    method4.graph()
+
     return 0
 
 if __name__ == '__main__':

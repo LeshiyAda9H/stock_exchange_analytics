@@ -49,7 +49,7 @@ class Volume:
 
     def choose_very_stable(self):
         comp = set()
-        for x in self.dispersions:
+        for x in self.medians:
             if (self.q2m < x[1] < self.q3m + 1.5*(self.q3m-self.q1m) and
                 self.q2d > x[1] > self.q1d - 1.5*(self.q3d-self.q1d)):
                 comp.add(x[0])
@@ -68,6 +68,32 @@ class Volume:
             if x[1] >= self.q3m + 1.5*(self.q3m-self.q1m):
                 comp.add(x[0])
         return comp
+
+    def very_stable_to_csv(self):
+        data = []
+        medians = dict(self.medians)
+        dispersions = dict(self.dispersions)
+        history = pd.read_csv('databases/history_data.csv')
+        for x in self.choose_very_stable():
+            data.append([list(history.loc[history['SECID'] == x]['SHORTNAME'])[0], x, medians[x], dispersions[x]])
+        pd.DataFrame(data, columns = ['SHORTNAME', 'SECID', 'MEDIAN', 'DISPERTION']).to_csv('databases/very_stable.csv')
+
+    def popular_and_stable_to_csv(self):
+        data = []
+        medians = dict(self.medians)
+        history = pd.read_csv('databases/history_data.csv')
+        for x in self.choose_popular_and_stable():
+            data.append([list(history.loc[history['SECID'] == x]['SHORTNAME'])[0], x, medians[x]])
+        pd.DataFrame(data, columns = ['SHORTNAME', 'SECID', 'MEDIAN']).to_csv('databases/popular_and_stable.csv')
+
+
+    def very_popular_to_csv(self):
+        data = []
+        medians = dict(self.medians)
+        history = pd.read_csv('databases/history_data.csv')
+        for x in self.choose_very_popular():
+            data.append([list(history.loc[history['SECID'] == x]['SHORTNAME'])[0], x, medians[x]])
+        pd.DataFrame(data, columns = ['SHORTNAME', 'SECID', 'MEDIAN']).to_csv('databases/very_popular.csv')
 
     def graph(self):
         m = [x[1] for x in list(self.medians) if x[1] < self.q3m + 1.5*(self.q3m-self.q1m)]
