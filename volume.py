@@ -37,35 +37,43 @@ class Volume:
         companies = df['SECID']
         for c in companies:
             self.analyse(c)
-
-    def choose_good_securities(self):
         n = len(self.dispersions)
         self.dispersions.sort(key=lambda x: x[1])
-        q1d = self.dispersions[int(n / 4)][1]
-        q2d = self.dispersions[int(n / 2)][1]
-        q3d = self.dispersions[int(n / 4 * 3)][1]
+        self.q1d = self.dispersions[int(n / 4)][1]
+        self.q2d = self.dispersions[int(n / 2)][1]
+        self.q3d = self.dispersions[int(n / 4 * 3)][1]
         self.medians.sort(key=lambda x: x[1])
-        q1m = self.medians[int(n / 4)][1]
-        q2m = self.medians[int(n / 2)][1]
-        q3m = self.medians[int(n / 4 * 3)][1]
-        good = set()
-        self.medians = dict(self.medians)
+        self.q1m = self.medians[int(n / 4)][1]
+        self.q2m = self.medians[int(n / 2)][1]
+        self.q3m = self.medians[int(n / 4 * 3)][1]
+
+    def choose_very_stable(self):
+        comp = set()
         for x in self.dispersions:
-            dispersion = x[1]
-            median = self.medians[x[0]]
-            if q2m >= median >= q1m - 1.5*(q3m - q1m):
-                good.add(x[0])
-        return good
+            if (self.q2m < x[1] < self.q3m + 1.5*(self.q3m-self.q1m) and
+                self.q2d > x[1] > self.q1d - 1.5*(self.q3d-self.q1d)):
+                comp.add(x[0])
+        return comp
+
+    def choose_popular_and_stable(self):
+        comp = set()
+        for x in self.medians:
+            if self.q2m < x[1] < self.q3m + 1.5*(self.q3m-self.q1m):
+                comp.add(x[0])
+        return comp
+
+    def choose_very_popular(self):
+        comp = set()
+        for x in self.medians:
+            if x[1] >= self.q3m + 1.5*(self.q3m-self.q1m):
+                comp.add(x[0])
+        return comp
 
     def graph(self):
         n = len(self.medians)
-        self.medians.sort(key=lambda x: x[1])
-        q1m = self.medians[int(n / 4)][1]
-        q2m = self.medians[int(n / 2)][1]
-        q3m = self.medians[int(n / 4 * 3)][1]
-        m = [x[1] for x in list(self.medians) if x[1] < q3m + 1.5*(q3m-q1m)]
+        m = [x[1] for x in list(self.medians) if x[1] < self.q3m + 1.5*(self.q3m-self.q1m)]
         plt.ylabel('Кол-во сделок', fontsize=30)
-        plt.boxplot(m, label='Медиана = '+str(q2m))
+        plt.boxplot(m, label='Медиана = ' + str(self.q2m))
         plt.legend()
         plt.show()
         pass

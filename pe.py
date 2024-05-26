@@ -4,14 +4,12 @@ import numpy as np
 import matplotlib as mpl
 
 class PE:
-    def bottom(self):
+    def csv(self):
         df = pd.DataFrame(self.pes, columns = ['Name', 'ID', 'Capitalization', 'Income', 'P/E ratio'])
         df.to_csv('databases/PE.csv')
 
     def __init__(self):
         self.pes = []
-        c1 = set()
-        c2 = set()
         marketdata = pd.read_csv('databases/marketdata.csv')
         incomes = pd.read_csv('databases/income.csv')
         securities = pd.read_csv('databases/securities_data.csv')
