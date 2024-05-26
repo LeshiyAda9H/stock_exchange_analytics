@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import numpy as np
 import matplotlib as mpl
+import matplotlib.pyplot as plt
 
 class PE:
     def csv(self):
@@ -25,3 +26,15 @@ class PE:
                     x, round(cap / 1000000000, 2), income, round(pe, 2)])
             except:
                 pass
+
+    def graph(self):
+        m = [x[4] for x in list(self.pes) if x[4] < 35]
+        m.sort()
+        n = len(m)
+        q1 = m[int(n/4)]
+        q3 = m[int(n/4*3)]
+        q2 = m[int(n/2)]
+        plt.ylabel('P/E ratio', fontsize=30)
+        plt.boxplot(m, label='Медиана = '+str(q2)+' Q1 = '+str(q1)+' Q3 = '+str(q3))
+        plt.legend()
+        plt.show()
