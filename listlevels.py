@@ -5,6 +5,18 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 class ListLevels:
+    def print(self):
+        securities = pd.read_csv('databases/securities_data.csv')
+        print('Listing level 1:')
+        for x in self.level1:
+            print(list(securities.loc[securities['SECID'] == x]['SECNAME'])[0])
+        print('\nListing level 2:')
+        for x in self.level2:
+            print(list(securities.loc[securities['SECID'] == x]['SECNAME'])[0])
+        print('\nListing level 3:')
+        for x in self.level3:
+            print(list(securities.loc[securities['SECID'] == x]['SECNAME'])[0])
+
     def __init__(self):
         df = pd.read_csv('databases/securities_data.csv')
         self.level1 = df.loc[df['LISTLEVEL'] == 1]['SECID']
