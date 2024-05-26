@@ -32,7 +32,7 @@ class Volume:
     def __init__(self):
         self.dispersions = []
         self.medians = []
-        df = pd.read_csv('history_data.csv')
+        df = pd.read_csv('databases/history_data.csv')
         companies = df['SECID']
         for c in companies:
             self.analyse(c)
