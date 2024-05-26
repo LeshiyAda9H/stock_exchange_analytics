@@ -9,10 +9,9 @@ import warnings
 def main():
     warnings.filterwarnings("ignore")
     method1 = Volume()
-    method1.csv()
-    #print(method1.choose_very_popular())
-    #print(method1.choose_popular_and_stable())
-    #print(method1.choose_very_stable())
+    print(method1.choose_very_popular())
+    print(method1.choose_popular_and_stable())
+    print(method1.choose_very_stable())
     #method2 = ListLevels()
     #method2.print()
     #method4 = Divd()
