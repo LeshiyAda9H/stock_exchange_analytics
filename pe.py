@@ -24,6 +24,6 @@ class PE:
                 pe = cap / income / 1000000000
                 if pe > 0:
                     self.pes.append([list(securities.loc[securities['SECID'] == x]['SECNAME'])[0],
-                    x, cap, income, pe])
+                    x, round(cap / 1000000000, 2), income, round(pe, 2)])
             except:
                 pass
