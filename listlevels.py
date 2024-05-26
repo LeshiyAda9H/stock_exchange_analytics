@@ -12,4 +12,8 @@ class ListLevels:
         self.levels = df['LISTLEVEL']
 
     def graph(self):
+        plt.xlabel('Уровень листинга', fontsize=30)
+        plt.ylabel('Кол-во компаний', fontsize=30)
+        plt.hist(self.levels, 'auto', color='c', ec='0', lw=5)
+        plt.show()
         pass

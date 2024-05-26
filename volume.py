@@ -57,4 +57,14 @@ class Volume:
         return good
 
     def graph(self):
+        n = len(self.medians)
+        self.medians.sort(key=lambda x: x[1])
+        q1m = self.medians[int(n / 4)][1]
+        q2m = self.medians[int(n / 2)][1]
+        q3m = self.medians[int(n / 4 * 3)][1]
+        m = [x[1] for x in list(self.medians) if x[1] < q3m + 1.5*(q3m-q1m)]
+        plt.ylabel('Кол-во сделок', fontsize=30)
+        plt.boxplot(m, label='Медиана = '+str(q2m))
+        plt.legend()
+        plt.show()
         pass
