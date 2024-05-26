@@ -34,7 +34,7 @@ def analyse(c):
     dispersions.append((c, int(np.median(dispersion))))
 
 def main():
-    df = pd.read_csv('all_companies.csv')
+    df = pd.read_csv('history_data.csv')
     companies = df['SECID']
     #analyse('GAZP')
     for c in companies:
