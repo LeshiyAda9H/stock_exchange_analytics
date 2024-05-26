@@ -54,6 +54,7 @@ class Volume:
             median = self.medians[x[0]]
             if q2m >= median >= q1m - 1.5*(q3m - q1m):
                 good.add(x[0])
+        return good
 
     def graph(self):
         pass
