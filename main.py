@@ -1,7 +1,7 @@
 from volume import *
 from listlevels import *
 from pe import *
-from devs import *
+from divd import *
 import json
 import pandas as pd
 import warnings
@@ -14,7 +14,7 @@ def main():
     # print(method1.choose_very_stable())
     #method2 = ListLevels()
     #method2.print()
-    method4 = Devs()
+    method4 = Divd()
     method4.csv()
     return 0
 

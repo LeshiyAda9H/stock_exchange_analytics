@@ -70,7 +70,6 @@ class Volume:
         return comp
 
     def graph(self):
-        n = len(self.medians)
         m = [x[1] for x in list(self.medians) if x[1] < self.q3m + 1.5*(self.q3m-self.q1m)]
         plt.ylabel('Кол-во сделок', fontsize=30)
         plt.boxplot(m, label='Медиана = ' + str(self.q2m))
