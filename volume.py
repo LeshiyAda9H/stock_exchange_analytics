@@ -1,24 +1,21 @@
+from header import *
 import requests
-import pandas as pd
-import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 
-start_date = '2024-01-01'
-end_date = '2024-05-01'
+start_date = '2023-05-01'
+end_date = '2024-06-01'
 
 class Volume:
     def analyse(self, c):
-        url = ('https://iss.moex.com/iss/history/engines/stock/markets/shares/securities/' + c + '.json?from='
-               + start_date + '&till=' + end_date + '&marketprice_board=1')
-        response = requests.get(url)
-        data = response.json()
-        securities_data = data['history']
-        df = pd.DataFrame(securities_data['data'], columns=securities_data['columns'])
+        data = requests.get(('https://iss.moex.com/iss/history/engines/stock/markets/shares/securities/' + c +
+                             '.json?from=' + start_date + '&till=' + end_date + '&marketprice_board=1')).json()
+        df = pd.DataFrame(data['history']['data'], columns=data['history']['columns'])
         for x in df['LOW']:
             if pd.isnull(x):
                 return
         for x in df['HIGH']:
+            if pd.isnull(x):
+                return
+        for x in df['VALUE']:
             if pd.isnull(x):
                 return
         middle_price = df['LOW'] + df['HIGH']

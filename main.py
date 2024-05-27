@@ -2,8 +2,6 @@ from volume import *
 from listlevels import *
 from pe import *
 from divd import *
-import json
-import pandas as pd
 import warnings
 
 def main():
@@ -11,12 +9,12 @@ def main():
 
     method1 = Volume()
     method1.very_popular_to_csv()
-    method1.popular_and_stable_to_csv()
     method1.very_stable_to_csv()
+    method1.popular_and_stable_to_csv()
+    method1.graph()
 
     method2 = PE()
     method2.csv()
-    method2.graph()
 
     method3 = ListLevels()
     method3.print()
